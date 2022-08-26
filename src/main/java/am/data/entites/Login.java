@@ -1,11 +1,8 @@
-package am.entities;
-
-import javax.persistence.Entity;
+package am.data.entites;
 
 import lombok.Data;
 
 @Data
-@Entity
 public class Login {
 
 	private String username;

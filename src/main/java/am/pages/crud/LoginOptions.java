@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import am.entities.Login;
+import am.data.entites.Login;
 import am.root.Application;
 
 class LoginOptionCreate extends CRUDOption<Login> {

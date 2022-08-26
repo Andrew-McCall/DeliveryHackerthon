@@ -1,6 +1,6 @@
 package am.pages.crud;
 
-import am.entities.Login;
+import am.data.entites.Login;
 
 public class LoginMenu extends CRUDMenu<Login> {
 
