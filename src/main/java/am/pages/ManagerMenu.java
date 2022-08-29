@@ -3,8 +3,8 @@ package am.pages;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import am.Application;
 import am.pages.crud.LoginMenu;
-import am.root.Application;
 
 public class ManagerMenu extends JPanel {
 

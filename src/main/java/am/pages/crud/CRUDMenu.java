@@ -8,9 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import am.Application;
 import am.common.swing.Title;
 import am.pages.ManagerMenu;
-import am.root.Application;
 
 public abstract class CRUDMenu<T> extends JPanel implements ActionListener {
 
@@ -78,19 +78,19 @@ public abstract class CRUDMenu<T> extends JPanel implements ActionListener {
 			return;
 
 		case "View One":
-			Application.setPanel(getCreate());
+			Application.setPanel(getViewOne());
 			break;
 
 		case "View All":
-			Application.setPanel(getCreate());
+			Application.setPanel(getViewAll());
 			break;
 
 		case "Edit":
-			Application.setPanel(getCreate());
+			Application.setPanel(getEdit());
 			break;
 
 		case "Delete":
-			Application.setPanel(getCreate());
+			Application.setPanel(getDelete());
 			break;
 		}
 

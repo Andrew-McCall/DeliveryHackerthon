@@ -1,4 +1,4 @@
-package am.root;
+package am;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -22,7 +22,7 @@ public class LoginMenu extends CRUDMenu<Login> {
 
 	@Override
 	public CRUDOption<Login> getViewAll() {
-		return null;
+		return new LoginOptionReadAll();
 	}
 
 	@Override

@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import am.Application;
 import am.common.swing.Title;
-import am.root.Application;
 
 public class LoginPage extends JPanel {
 

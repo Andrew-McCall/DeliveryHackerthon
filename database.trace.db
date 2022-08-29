@@ -1,0 +1,3 @@
+2022-08-29 16:08:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LOGINS" not found (this database is empty); SQL statement:
+INSERT INTO logins (username, password, isManager) VALUES (?, ?, ?) [42104-214]

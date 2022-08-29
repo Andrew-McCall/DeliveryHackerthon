@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.common.DBUtils;
+import am.data.DAO;
 import am.data.entites.Login;
 
 public class LoginDAO implements DAO<Login> {
