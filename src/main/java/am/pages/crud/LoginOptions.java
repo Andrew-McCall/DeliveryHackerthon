@@ -58,7 +58,7 @@ class LoginOptionCreate extends CRUDOption<Login> {
 				password.grabFocus();
 				return;
 			}
-			new LoginDAO().create(new Login(null, username.getText(), password.getText(), manager.isChecked()));
+			new LoginDAO().create(new Login(username.getText(), password.getText(), manager.isChecked()));
 		}
 		Application.setPanel(new LoginMenu());
 	}
@@ -76,12 +76,12 @@ class LoginOptionReadAll extends CRUDOption<Login> {
 	@Override
 	public void create() {
 
-		String output = "";
+		String output = " ";
 		List<Login> logins = new LoginDAO().readAll();
 		for (int i = 0; i < logins.size(); i++) {
 			output += logins.get(i).toString();
 			if (i + 1 < logins.size())
-				output += "\n";
+				output += " \n ";
 		}
 
 		JTextArea outputArea = new JTextArea(output);
