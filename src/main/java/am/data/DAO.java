@@ -16,7 +16,7 @@ public abstract interface DAO<T> {
 
 	T read(Long id);
 
-	T update(T t);
+	Boolean update(T t);
 
 	Boolean delete(Long id);
 

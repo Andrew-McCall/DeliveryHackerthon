@@ -17,7 +17,7 @@ public class LoginMenu extends CRUDMenu<Login> {
 
 	@Override
 	public CRUDOption<Login> getViewOne() {
-		return null;
+		return new LoginOptionReadOne();
 	}
 
 	@Override
@@ -27,12 +27,12 @@ public class LoginMenu extends CRUDMenu<Login> {
 
 	@Override
 	public CRUDOption<Login> getEdit() {
-		return null;
+		return new LoginOptionUpdate();
 	}
 
 	@Override
 	public CRUDOption<Login> getDelete() {
-		return null;
+		return new LoginOptionDelete();
 	}
 
 }

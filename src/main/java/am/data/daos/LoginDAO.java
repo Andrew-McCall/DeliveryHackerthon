@@ -54,9 +54,11 @@ public class LoginDAO implements DAO<Login> {
 	@Override
 	public Login read(Long login_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM logins WHERE login_id = ?");) {
-			statement.setLong(1, login_id);
-			return modelFromResultSet(statement.executeQuery());
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM logins WHERE login_id = " + login_id.toString() + " LIMIT 1");) {
+			resultSet.next();
+			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
 			System.out.checkError();
 			System.out.println(e.getMessage());
@@ -82,7 +84,7 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public Login update(Login login) {
+	public Boolean update(Login login) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
 						"UPDATE logins SET username = ?, password = ?, isManager = ? WHERE login_id = ?");) {
@@ -90,12 +92,12 @@ public class LoginDAO implements DAO<Login> {
 			statement.setString(2, login.getPassword());
 			statement.setBoolean(3, login.getIsManager());
 			statement.setLong(4, login.getLogin_id());
-			return read(login.getLogin_id());
+			return (statement.executeUpdate() == 1);
 		} catch (Exception e) {
 			System.out.checkError();
 			System.out.println(e.getMessage());
 		}
-		return null;
+		return false;
 	}
 
 	@Override

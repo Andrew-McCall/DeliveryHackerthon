@@ -78,10 +78,10 @@ class LoginOptionReadAll extends CRUDOption<Login> {
 
 		String output = "";
 		List<Login> logins = new LoginDAO().readAll();
-		output += logins.get(0).toString();
-		for (int i = 1; i < logins.size(); i++) {
-			output += "\n";
+		for (int i = 0; i < logins.size(); i++) {
 			output += logins.get(i).toString();
+			if (i + 1 < logins.size())
+				output += "\n";
 		}
 
 		JTextArea outputArea = new JTextArea(output);
@@ -92,6 +92,174 @@ class LoginOptionReadAll extends CRUDOption<Login> {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Application.setPanel(new LoginMenu());
+	}
+
+}
+
+class LoginOptionReadOne extends CRUDOption<Login> {
+
+	private static final long serialVersionUID = -4456311836942685454L;
+	private JTextField login_id;
+	private JLabel response;
+
+	private LoginDAO loginDAO;
+
+	public LoginOptionReadOne() {
+		super("Read One", 4);
+		loginDAO = new LoginDAO();
+	}
+
+	@Override
+	public void create() {
+
+		this.add(new JLabel("Id:"));
+		login_id = new JTextField(24);
+		this.add(login_id);
+
+		response = new JLabel("");
+		this.add(response);
+
+		JButton read = new JButton("Read");
+		read.addActionListener(this);
+		this.add(read);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Read")) {
+			setOutput("");
+			Long id = (long) 0;
+			try {
+				id = Long.parseLong(login_id.getText());
+			} catch (NumberFormatException error) {
+				setOutput("Please enter a vaild number");
+				login_id.grabFocus();
+				return;
+			}
+			Login read = loginDAO.read(id);
+			if (read == null) {
+				response.setText("Null");
+			} else {
+				response.setText(read.toString());
+				Application.repack();
+			}
+			return;
+		}
+		Application.setPanel(new LoginMenu());
+	}
+
+}
+
+class LoginOptionUpdate extends CRUDOption<Login> {
+
+	private static final long serialVersionUID = 9001020055950930664L;
+	private JTextField login_id;
+	private TickBox manager;
+	private JTextField username;
+	private JTextField password;
+
+	public LoginOptionUpdate() {
+		super("Update", 8);
+	}
+
+	@Override
+	public void create() {
+
+		this.add(new JLabel("Id:"));
+		login_id = new JTextField(24);
+		this.add(login_id);
+
+		this.add(new JLabel("Username:"));
+		username = new JTextField(24);
+		this.add(username);
+
+		this.add(new JLabel("Password:"));
+		password = new JTextField(24);
+		this.add(password);
+
+		manager = new TickBox("Manager?");
+		this.add(manager);
+
+		JButton read = new JButton("Update");
+		read.addActionListener(this);
+		this.add(read);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Update")) {
+			setOutput("");
+			Long id = (long) 0;
+			try {
+				id = Long.parseLong(login_id.getText());
+			} catch (NumberFormatException error) {
+				setOutput("Please enter a vaild number");
+				login_id.grabFocus();
+				return;
+			}
+			if (username.getText().length() == 0) {
+				setOutput("Missing Username");
+				username.grabFocus();
+				return;
+			}
+			if (password.getText().length() == 0) {
+				setOutput("Missing Password");
+				password.grabFocus();
+				return;
+			}
+			if (!new LoginDAO().update(new Login(id, username.getText(), password.getText(), manager.isChecked()))) {
+				setOutput("Login does not exist");
+				return;
+			}
+		}
+		Application.setPanel(new LoginMenu());
+	}
+
+}
+
+class LoginOptionDelete extends CRUDOption<Login> {
+
+	private static final long serialVersionUID = -8690498038032389738L;
+	private JTextField login_id;
+
+	public LoginOptionDelete() {
+		super("Delete", 3);
+	}
+
+	@Override
+	public void create() {
+
+		this.add(new JLabel("Id:"));
+		login_id = new JTextField(24);
+		this.add(login_id);
+
+		JButton read = new JButton("Delete");
+		read.addActionListener(this);
+		this.add(read);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Delete")) {
+			setOutput("");
+			Long id = (long) 0;
+			try {
+				id = Long.parseLong(login_id.getText());
+			} catch (NumberFormatException error) {
+				setOutput("Please enter a vaild number");
+				login_id.grabFocus();
+				return;
+			}
+			if (!new LoginDAO().delete(id)) {
+				setOutput("Login does not exist");
+				return;
+			}
+
+		}
 		Application.setPanel(new LoginMenu());
 	}
 
