@@ -1,4 +1,4 @@
-package am.common;
+package am.common.swing;
 
 import java.awt.Font;
 

@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import am.common.Title;
+import am.common.swing.Title;
 import am.pages.ManagerMenu;
 import am.root.Application;
 

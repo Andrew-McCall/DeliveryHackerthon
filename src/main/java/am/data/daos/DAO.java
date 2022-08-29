@@ -8,14 +8,16 @@ public abstract interface DAO<T> {
 
 	T modelFromResultSet(ResultSet resultSet) throws SQLException;
 
+	T readLatest();
+
 	T create(T t);
 
 	List<T> readAll();
 
-	T read(Integer id);
+	T read(Long id);
 
 	T update(T t);
 
-	Boolean delete(Integer id);
+	Boolean delete(Long id);
 
 }
