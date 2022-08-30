@@ -183,7 +183,7 @@ class AddressOptionUpdate extends CRUDOption<Address> {
 	private JTextField postcode;
 
 	public AddressOptionUpdate() {
-		super("Update Address", 10);
+		super("Update Address", 11);
 	}
 
 	@Override
