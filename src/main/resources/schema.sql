@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS routes(
             stop_count INT,
             login_id INT,
             FOREIGN KEY (login_id) REFERENCES logins(login_id)
+            ON DELETE CASCADE
             );
             
 CREATE TABLE IF NOT EXISTS addresses(

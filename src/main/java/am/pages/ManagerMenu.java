@@ -10,6 +10,7 @@ import am.common.swing.Title;
 import am.pages.crud.AddressMenu;
 import am.pages.crud.LoginMenu;
 import am.pages.crud.OrderMenu;
+import am.pages.crud.RouteMenu;
 
 public class ManagerMenu extends JPanel {
 
@@ -31,7 +32,11 @@ public class ManagerMenu extends JPanel {
 		order.addActionListener(e -> Application.setPanel(new OrderMenu()));
 		this.add(order);
 
-		this.setLayout(new GridLayout(4, 1, 12, 12));
+		JButton route = new JButton("Route CRUD");
+		route.addActionListener(e -> Application.setPanel(new RouteMenu()));
+		this.add(route);
+
+		this.setLayout(new GridLayout(5, 1, 12, 12));
 
 	}
 }
