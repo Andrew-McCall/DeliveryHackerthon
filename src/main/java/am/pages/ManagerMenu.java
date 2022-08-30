@@ -12,7 +12,7 @@ public class ManagerMenu extends JPanel {
 
 	public ManagerMenu() {
 
-		JButton login = new JButton("Login DB");
+		JButton login = new JButton("Login");
 		login.addActionListener(e -> Application.setPanel(new LoginMenu()));
 		this.add(login);
 
