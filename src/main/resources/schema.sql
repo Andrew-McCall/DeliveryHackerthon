@@ -32,8 +32,9 @@ CREATE TABLE IF NOT EXISTS orders(
             
 CREATE TABLE IF NOT EXISTS routestops(
 			routestop_id INT PRIMARY KEY auto_increment,
-            stopnumber Int,
+            stopnumber INT,
             order_id INT,
-            estimated_time datetime NOT NULL,
-            FOREIGN KEY (order_id) REFERENCES orders(order_id)
+			route_id INT,
+            FOREIGN KEY (order_id) REFERENCES orders(order_id),
+            FOREIGN KEY (route_id) REFERENCES routes(route_id)
             );
