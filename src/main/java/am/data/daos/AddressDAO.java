@@ -10,21 +10,22 @@ import java.util.List;
 
 import am.common.DBUtils;
 import am.data.DAO;
-import am.data.entites.Login;
+import am.data.entites.Address;
 
-public class LoginDAO implements DAO<Login> {
+public class AddressDAO implements DAO<Address> {
 
 	@Override
-	public Login modelFromResultSet(ResultSet resultSet) throws SQLException {
-		return new Login(resultSet.getLong("login_id"), resultSet.getString("username"),
-				resultSet.getString("password"), resultSet.getString("name"), resultSet.getBoolean("isManager"));
+	public Address modelFromResultSet(ResultSet resultSet) throws SQLException {
+		return new Address(resultSet.getLong("address_id"), resultSet.getString("address_line_one"),
+				resultSet.getString("address_line_two"), resultSet.getString("city"), resultSet.getString("postcode"));
 	}
 
 	@Override
-	public Login readLatest() {
+	public Address readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM logins ORDER BY login_id DESC LIMIT 1");) {
+				ResultSet resultSet = statement
+						.executeQuery("SELECT * FROM addresses ORDER BY address_id DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -35,15 +36,15 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public List<Login> readAll() {
+	public List<Address> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM logins");) {
-			List<Login> logins = new ArrayList<>();
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM addresses");) {
+			List<Address> addresses = new ArrayList<>();
 			while (resultSet.next()) {
-				logins.add(modelFromResultSet(resultSet));
+				addresses.add(modelFromResultSet(resultSet));
 			}
-			return logins;
+			return addresses;
 		} catch (SQLException e) {
 			System.out.checkError();
 			System.out.println(e.getMessage());
@@ -52,11 +53,11 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public Login read(Long login_id) {
+	public Address read(Long address_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM logins WHERE login_id = " + login_id.toString() + " LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery(
+						"SELECT * FROM addresses WHERE address_id = " + address_id.toString() + " LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -67,14 +68,14 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public Login create(Login login) {
+	public Address create(Address address) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO logins (username, password, name, isManager) VALUES (?, ?, ?, ?)");) {
-			statement.setString(1, login.getUsername());
-			statement.setString(2, login.getPassword());
-			statement.setString(3, login.getName());
-			statement.setBoolean(4, login.getIsManager());
+						"INSERT INTO addresses (address_line_one, address_line_two, city, postcode) VALUES (?, ?, ?, ?)");) {
+			statement.setString(1, address.getAddress_line_one());
+			statement.setString(2, address.getAddress_line_two());
+			statement.setString(3, address.getCity());
+			statement.setString(4, address.getPostcode());
 			statement.execute();
 			return readLatest();
 		} catch (Exception e) {
@@ -85,15 +86,15 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public Boolean update(Login login) {
+	public Boolean update(Address address) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE logins SET username = ?, password = ?, name = ?, isManager = ? WHERE login_id = ? LIMIT 1");) {
-			statement.setString(1, login.getUsername());
-			statement.setString(2, login.getPassword());
-			statement.setString(3, login.getName());
-			statement.setBoolean(4, login.getIsManager());
-			statement.setLong(5, login.getLogin_id());
+						"UPDATE addresses SET address_line_one = ?, address_line_two = ?, city = ?, postcode = ? WHERE address_id = ? LIMIT 1");) {
+			statement.setString(1, address.getAddress_line_one());
+			statement.setString(2, address.getAddress_line_two());
+			statement.setString(3, address.getCity());
+			statement.setString(4, address.getPostcode());
+			statement.setLong(5, address.getAddress_id());
 			return (statement.executeUpdate() == 1);
 		} catch (Exception e) {
 			System.out.checkError();
@@ -103,11 +104,11 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	@Override
-	public Boolean delete(Long login_id) {
+	public Boolean delete(Long address_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("DELETE FROM logins WHERE login_id = ? LIMIT 1");) {
-			statement.setLong(1, login_id);
+						.prepareStatement("DELETE FROM addresses WHERE address_id = ? LIMIT 1");) {
+			statement.setLong(1, address_id);
 			return (statement.executeUpdate() == 1);
 		} catch (Exception e) {
 			System.out.checkError();
