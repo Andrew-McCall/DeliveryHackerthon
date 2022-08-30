@@ -25,6 +25,7 @@ class OrderOptionCreate extends CRUDOption<Order> {
 		super("Create Order", 4);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void create() {
 
@@ -162,6 +163,7 @@ class OrderOptionUpdate extends CRUDOption<Order> {
 		super("Update Order", 6);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void create() {
 
