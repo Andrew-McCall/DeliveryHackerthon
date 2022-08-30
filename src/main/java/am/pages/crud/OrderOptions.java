@@ -159,7 +159,7 @@ class OrderOptionUpdate extends CRUDOption<Order> {
 	private JComboBox<Address> addressBox;
 
 	public OrderOptionUpdate() {
-		super("Update Order", 11);
+		super("Update Order", 6);
 	}
 
 	@Override

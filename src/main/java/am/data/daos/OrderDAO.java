@@ -56,7 +56,7 @@ public class OrderDAO implements DAO<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM logins WHERE login_id = " + order_id.toString() + " LIMIT 1");) {
+						.executeQuery("SELECT * FROM orders WHERE order_id = " + order_id.toString() + " LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
