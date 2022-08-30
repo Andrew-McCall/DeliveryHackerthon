@@ -19,10 +19,11 @@ class LoginOptionCreate extends CRUDOption<Login> {
 
 	private JTextField username;
 	private JTextField password;
+	private JTextField name;
 	private TickBox manager;
 
 	public LoginOptionCreate() {
-		super("Create", 6);
+		super("Create Login", 8);
 	}
 
 	@Override
@@ -35,6 +36,10 @@ class LoginOptionCreate extends CRUDOption<Login> {
 		this.add(new JLabel("Password:"));
 		password = new JTextField(24);
 		this.add(password);
+
+		this.add(new JLabel("Name:"));
+		name = new JTextField(24);
+		this.add(name);
 
 		manager = new TickBox("Manager?");
 		this.add(manager);
@@ -58,7 +63,13 @@ class LoginOptionCreate extends CRUDOption<Login> {
 				password.grabFocus();
 				return;
 			}
-			new LoginDAO().create(new Login(username.getText(), password.getText(), manager.isChecked()));
+			if (name.getText().length() == 0) {
+				setOutput("Missing Name");
+				name.grabFocus();
+				return;
+			}
+			new LoginDAO()
+					.create(new Login(username.getText(), password.getText(), name.getText(), manager.isChecked()));
 		}
 		Application.setPanel(new LoginMenu());
 	}
@@ -70,7 +81,7 @@ class LoginOptionReadAll extends CRUDOption<Login> {
 	private static final long serialVersionUID = -2106076781285195145L;
 
 	public LoginOptionReadAll() {
-		super("Read All", 1);
+		super("Read All Logins", 1);
 	}
 
 	@Override
@@ -106,7 +117,7 @@ class LoginOptionReadOne extends CRUDOption<Login> {
 	private LoginDAO loginDAO;
 
 	public LoginOptionReadOne() {
-		super("Read One", 4);
+		super("Read Login", 4);
 		loginDAO = new LoginDAO();
 	}
 
@@ -159,9 +170,10 @@ class LoginOptionUpdate extends CRUDOption<Login> {
 	private TickBox manager;
 	private JTextField username;
 	private JTextField password;
+	private JTextField name;
 
 	public LoginOptionUpdate() {
-		super("Update", 8);
+		super("Update Login", 10);
 	}
 
 	@Override
@@ -178,6 +190,10 @@ class LoginOptionUpdate extends CRUDOption<Login> {
 		this.add(new JLabel("Password:"));
 		password = new JTextField(24);
 		this.add(password);
+
+		this.add(new JLabel("Name:"));
+		name = new JTextField(24);
+		this.add(name);
 
 		manager = new TickBox("Manager?");
 		this.add(manager);
@@ -210,7 +226,13 @@ class LoginOptionUpdate extends CRUDOption<Login> {
 				password.grabFocus();
 				return;
 			}
-			if (!new LoginDAO().update(new Login(id, username.getText(), password.getText(), manager.isChecked()))) {
+			if (name.getText().length() == 0) {
+				setOutput("Missing Name");
+				name.grabFocus();
+				return;
+			}
+			if (!new LoginDAO().update(
+					new Login(id, username.getText(), password.getText(), name.getText(), manager.isChecked()))) {
 				setOutput("Login does not exist");
 				return;
 			}
@@ -226,7 +248,7 @@ class LoginOptionDelete extends CRUDOption<Login> {
 	private JTextField login_id;
 
 	public LoginOptionDelete() {
-		super("Delete", 3);
+		super("Delete Login", 3);
 	}
 
 	@Override

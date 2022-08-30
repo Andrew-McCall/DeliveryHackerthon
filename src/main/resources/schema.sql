@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS routes(
             FOREIGN KEY (login_id) REFERENCES logins(login_id)
             );
             
-CREATE TABLE IF NOT EXISTS address(
+CREATE TABLE IF NOT EXISTS addresses(
 			address_id INT PRIMARY KEY auto_increment,
             address_line_one VARCHAR(64),
             address_line_two VARCHAR(64),
@@ -26,10 +26,10 @@ CREATE TABLE IF NOT EXISTS orders(
 			order_id INT PRIMARY KEY auto_increment,
             description VARCHAR(255) NOT NULL,
             address_id INT NOT NULL,
-            FOREIGN KEY (address_id) REFERENCES address(address_id)
+            FOREIGN KEY (address_id) REFERENCES addresses(address_id)
             );
             
-CREATE TABLE IF NOT EXISTS routestop(
+CREATE TABLE IF NOT EXISTS routestops(
 			routestop_id INT PRIMARY KEY auto_increment,
             stopnumber Int,
             order_id INT,

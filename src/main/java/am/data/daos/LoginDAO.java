@@ -17,7 +17,7 @@ public class LoginDAO implements DAO<Login> {
 	@Override
 	public Login modelFromResultSet(ResultSet resultSet) throws SQLException {
 		return new Login(resultSet.getLong("login_id"), resultSet.getString("username"),
-				resultSet.getString("password"), resultSet.getBoolean("isManager"));
+				resultSet.getString("password"), resultSet.getString("name"), resultSet.getBoolean("isManager"));
 	}
 
 	@Override
@@ -69,11 +69,12 @@ public class LoginDAO implements DAO<Login> {
 	@Override
 	public Login create(Login login) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO logins (username, password, isManager) VALUES (?, ?, ?)");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO logins (username, password, name, isManager) VALUES (?, ?, ?, ?)");) {
 			statement.setString(1, login.getUsername());
 			statement.setString(2, login.getPassword());
-			statement.setBoolean(3, login.getIsManager());
+			statement.setString(3, login.getName());
+			statement.setBoolean(4, login.getIsManager());
 			statement.execute();
 			return readLatest();
 		} catch (Exception e) {
@@ -87,11 +88,12 @@ public class LoginDAO implements DAO<Login> {
 	public Boolean update(Login login) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE logins SET username = ?, password = ?, isManager = ? WHERE login_id = ?");) {
+						"UPDATE logins SET username = ?, password = ?, name = ?, isManager = ? WHERE login_id = ?");) {
 			statement.setString(1, login.getUsername());
 			statement.setString(2, login.getPassword());
-			statement.setBoolean(3, login.getIsManager());
-			statement.setLong(4, login.getLogin_id());
+			statement.setString(3, login.getName());
+			statement.setBoolean(4, login.getIsManager());
+			statement.setLong(5, login.getLogin_id());
 			return (statement.executeUpdate() == 1);
 		} catch (Exception e) {
 			System.out.checkError();

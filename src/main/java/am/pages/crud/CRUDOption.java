@@ -1,5 +1,6 @@
 package am.pages.crud;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -19,6 +20,7 @@ public abstract class CRUDOption<T> extends JPanel implements ActionListener {
 		this.add(new Title(title));
 
 		output = new JLabel("");
+		output.setForeground(Color.RED);
 		this.add(output);
 
 		create();

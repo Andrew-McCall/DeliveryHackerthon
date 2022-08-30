@@ -16,6 +16,8 @@ public class Login {
 	@NonNull
 	private String password;
 	@NonNull
+	private String name;
+	@NonNull
 	private Boolean isManager;
 
 }
