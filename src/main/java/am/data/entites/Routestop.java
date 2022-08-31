@@ -14,7 +14,8 @@ public class Routestop {
 	@NonNull
 	private Long route_id;
 	@NonNull
-	private Long order_id;
-	@NonNull
 	private Integer stop_number;
+	@NonNull
+	private Long order_id;
+
 }

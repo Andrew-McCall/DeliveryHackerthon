@@ -22,7 +22,7 @@ class OrderOptionCreate extends CRUDOption<Order> {
 	private JComboBox<Address> addressBox;
 
 	public OrderOptionCreate() {
-		super("Create Order", 4);
+		super("Create Order", 5);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -33,6 +33,7 @@ class OrderOptionCreate extends CRUDOption<Order> {
 		description = new JTextField(24);
 		this.add(description);
 
+		this.add(new JLabel("Address:"));
 		List<Address> addresses = new AddressDAO().readAll();
 		addressBox = new JComboBox(addresses.toArray());
 		this.add(addressBox);

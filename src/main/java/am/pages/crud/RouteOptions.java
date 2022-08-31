@@ -21,13 +21,14 @@ class RouteOptionCreate extends CRUDOption<Route> {
 	private JComboBox<Login> loginBox;
 
 	public RouteOptionCreate() {
-		super("Create Route", 4);
+		super("Create Route", 5);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void create() {
 
+		this.add(new JLabel("Login:"));
 		List<Login> logins = new LoginDAO().readAll();
 		loginBox = new JComboBox(logins.toArray());
 		this.add(loginBox);
@@ -200,7 +201,7 @@ class RouteOptionUpdate extends CRUDOption<Route> {
 class RouteOptionDelete extends CRUDOption<Route> {
 
 	private static final long serialVersionUID = -8932944635148471362L;
-	private JTextField order_id;
+	private JTextField route_id;
 
 	public RouteOptionDelete() {
 		super("Delete Route", 3);
@@ -210,8 +211,8 @@ class RouteOptionDelete extends CRUDOption<Route> {
 	public void create() {
 
 		this.add(new JLabel("Id:"));
-		order_id = new JTextField(24);
-		this.add(order_id);
+		route_id = new JTextField(24);
+		this.add(route_id);
 
 		JButton read = new JButton("Delete");
 		read.addActionListener(this);
@@ -225,10 +226,10 @@ class RouteOptionDelete extends CRUDOption<Route> {
 			setOutput("");
 			Long id = (long) 0;
 			try {
-				id = Long.parseLong(order_id.getText());
+				id = Long.parseLong(route_id.getText());
 			} catch (NumberFormatException error) {
 				setOutput("Please enter a vaild number");
-				order_id.grabFocus();
+				route_id.grabFocus();
 				return;
 			}
 			if (!new RouteDAO().delete(id)) {

@@ -14,11 +14,6 @@ public class DBUtils {
 
 	private static DBUtils instance;
 
-	public static DBUtils connect() {
-		instance = new DBUtils();
-		return instance;
-	}
-
 	public static DBUtils getInstance() {
 		if (instance == null) {
 			instance = new DBUtils();
