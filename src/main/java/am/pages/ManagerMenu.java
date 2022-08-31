@@ -11,6 +11,7 @@ import am.pages.crud.AddressMenu;
 import am.pages.crud.LoginMenu;
 import am.pages.crud.OrderMenu;
 import am.pages.crud.RouteMenu;
+import am.pages.crud.RoutestopMenu;
 
 public class ManagerMenu extends JPanel {
 
@@ -36,7 +37,11 @@ public class ManagerMenu extends JPanel {
 		route.addActionListener(e -> Application.setPanel(new RouteMenu()));
 		this.add(route);
 
-		this.setLayout(new GridLayout(5, 1, 12, 12));
+		JButton routestop = new JButton("Routestop CRUD");
+		routestop.addActionListener(e -> Application.setPanel(new RoutestopMenu()));
+		this.add(routestop);
+
+		this.setLayout(new GridLayout(6, 1, 12, 12));
 
 	}
 }
