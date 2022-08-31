@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import am.Application;
 import am.common.swing.Title;
-import am.pages.ManagerMenu;
+import am.pages.ManagerPage;
 
 public abstract class CRUDMenu<T> extends JPanel implements ActionListener {
 
@@ -65,7 +65,7 @@ public abstract class CRUDMenu<T> extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getActionCommand().equals("Back")) {
-			Application.setPanel(new ManagerMenu());
+			Application.setPanel(new ManagerPage());
 			return;
 		}
 

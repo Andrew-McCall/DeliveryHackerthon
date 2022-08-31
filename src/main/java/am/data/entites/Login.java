@@ -10,6 +10,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Login {
 
+	public Login(@NonNull String username, @NonNull String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	private Long login_id;
 	@NonNull
 	private String username;

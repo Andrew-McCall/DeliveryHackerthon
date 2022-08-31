@@ -13,11 +13,11 @@ import am.pages.crud.OrderMenu;
 import am.pages.crud.RouteMenu;
 import am.pages.crud.RoutestopMenu;
 
-public class ManagerMenu extends JPanel {
+public class ManagerPage extends JPanel {
 
 	private static final long serialVersionUID = -5848887882652905033L;
 
-	public ManagerMenu() {
+	public ManagerPage() {
 
 		this.add(new Title("Manager Menu"));
 
@@ -41,7 +41,11 @@ public class ManagerMenu extends JPanel {
 		routestop.addActionListener(e -> Application.setPanel(new RoutestopMenu()));
 		this.add(routestop);
 
-		this.setLayout(new GridLayout(6, 1, 12, 12));
+		JButton logout = new JButton("LOGOUT");
+		logout.addActionListener(e -> Application.setPanel(new LoginPage()));
+		this.add(logout);
+
+		this.setLayout(new GridLayout(7, 1, 12, 12));
 
 	}
 }
