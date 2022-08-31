@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.common.DBUtils;
-import am.data.DAO;
 import am.data.entites.Routestop;
 
 public class RoutestopDAO implements DAO<Routestop> {

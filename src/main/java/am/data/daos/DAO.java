@@ -1,4 +1,4 @@
-package am.data;
+package am.data.daos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

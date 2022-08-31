@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import am.common.DBUtils;
-import am.data.DAO;
 import am.data.entites.Order;
 
 public class OrderDAO implements DAO<Order> {
