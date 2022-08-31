@@ -22,7 +22,7 @@ public class Application {
 		app = new JFrame("DeliverAreMe");
 
 		setPanel(new LoginPage());
-
+//		setPanel(new ManagerPage());
 		app.setVisible(true);
 	}
 

@@ -231,8 +231,9 @@ class LoginOptionUpdate extends CRUDOption<Login> {
 				name.grabFocus();
 				return;
 			}
-			if (!new LoginDAO().update(
-					new Login(id, username.getText(), password.getText(), name.getText(), manager.isChecked()))) {
+			Login login = new Login(id, username.getText(), null, name.getText(), manager.isChecked());
+			login.setPassword(password.getText()); // Hash
+			if (!new LoginDAO().update(login)) {
 				setOutput("Login does not exist");
 				return;
 			}
