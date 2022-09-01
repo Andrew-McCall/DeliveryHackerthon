@@ -18,9 +18,10 @@ public class LocationDAO {
 
 	public Location read(Long location_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery(
-						"SELECT * FROM locations WHERE location_id = " + location_id.toString() + " LIMIT 1");) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM locations WHERE location_id = ? LIMIT 1");) {
+			statement.setLong(1, location_id);
+			ResultSet resultSet = statement.executeQuery();
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
