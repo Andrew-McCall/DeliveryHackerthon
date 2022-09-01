@@ -38,3 +38,11 @@ CREATE TABLE IF NOT EXISTS routestops(
             FOREIGN KEY (order_id) REFERENCES orders(order_id),
             FOREIGN KEY (route_id) REFERENCES routes(route_id)
             );
+            
+-- Optional
+CREATE TABLE IF NOT EXISTS locations(
+		location_id INT PRIMARY KEY auto_increment,
+        postcode VARCHAR(8),
+        longitude DOUBLE,
+		latitude DOUBLE
+        );

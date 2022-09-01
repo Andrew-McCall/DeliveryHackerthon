@@ -11,6 +11,7 @@ public class Application {
 	private static JFrame app;
 
 	public static void main(String[] args) {
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createApp();
@@ -22,7 +23,7 @@ public class Application {
 		app = new JFrame("DeliverAreMe");
 
 		setPanel(new LoginPage());
-//		setPanel(new ManagerPage());
+
 		app.setVisible(true);
 	}
 
