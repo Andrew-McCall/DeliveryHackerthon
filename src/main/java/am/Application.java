@@ -11,7 +11,6 @@ public class Application {
 	private static JFrame app;
 
 	public static void main(String[] args) {
-
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createApp();

@@ -32,9 +32,10 @@ public class LocationDAO {
 
 	public Location read(String postcode) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM locations WHERE postcode = " + postcode + " LIMIT 1");) {
+				PreparedStatement statement = connection
+						.prepareStatement("SELECT * FROM locations WHERE postcode = ? LIMIT 1");) {
+			statement.setString(1, postcode);
+			ResultSet resultSet = statement.executeQuery();
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {

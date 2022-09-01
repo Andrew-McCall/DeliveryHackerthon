@@ -6,6 +6,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
+import am.data.daos.LocationDAO;
+
 public class Location {
 
 	public Location(String postcode) {
@@ -29,17 +31,25 @@ public class Location {
 	private final String API_KEY = "&key=17o8dysaCDrgv1c";
 
 	private void findCoordinates() {
-		HttpClient client = HttpClient.newHttpClient();
-		String urlPostcode = postcode.toUpperCase().replace(" ", "%20");
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_API_URL + urlPostcode + API_KEY)).build();
-		client.sendAsync(request, BodyHandlers.ofString()).thenApply(HttpResponse::body).thenAccept(this::parseJson)
-				.join();
+		Location cache = new LocationDAO().read(this.postcode);
+		if (cache == null) {
+			HttpClient client = HttpClient.newHttpClient();
+			String urlPostcode = postcode.toUpperCase().replace(" ", "%20");
+			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_API_URL + urlPostcode + API_KEY))
+					.build();
+			client.sendAsync(request, BodyHandlers.ofString()).thenApply(HttpResponse::body).thenAccept(this::parseJson)
+					.join();
+		} else {
+			this.setLocation_id(cache.getLocation_id());
+			this.setLongitude(cache.getLongitude());
+			this.setLatitude(cache.getLatitude());
+		}
 	}
 
 	private void parseJson(String json) {
 		if (json.indexOf("1") == -1) {// Positive Status
-			this.setLongitude(-0.0);
-			this.setLatitude(-0.0);
+			this.setLongitude(0.0);
+			this.setLatitude(0.0);
 			return;
 		}
 
@@ -48,11 +58,12 @@ public class Location {
 			double longitude = Double.parseDouble(jsonColumn("longitude", json));
 			this.setLatitude(latitude);
 			this.setLongitude(longitude);
+			new LocationDAO().create(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e);
-			this.setLongitude(-0.0);
-			this.setLatitude(-0.0);
+			this.setLongitude(0.0);
+			this.setLatitude(0.0);
 		}
 	}
 
