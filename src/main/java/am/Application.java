@@ -21,7 +21,10 @@ public class Application {
 	public static void createApp() {
 		app = new JFrame("DeliverAreMe");
 
+		app.setResizable(false);
+
 		setPanel(new LoginPage());
+		// gisetPanel(new ManageRoutes());
 
 		app.setVisible(true);
 	}

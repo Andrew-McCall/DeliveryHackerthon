@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import am.Application;
+import am.common.swing.TickBox;
 import am.data.daos.OrderDAO;
 import am.data.daos.RouteDAO;
 import am.data.daos.RoutestopDAO;
@@ -22,9 +23,10 @@ class RoutestopOptionCreate extends CRUDOption<Routestop> {
 	private static final long serialVersionUID = 2136835610502283849L;
 	private JComboBox<Order> orderBox;
 	private JComboBox<Route> routeBox;
+	private TickBox isDelivered;
 
 	public RoutestopOptionCreate() {
-		super("Create Routestop", 5);
+		super("Create Routestop", 6);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -40,6 +42,9 @@ class RoutestopOptionCreate extends CRUDOption<Routestop> {
 		List<Order> orders = new OrderDAO().readAll();
 		orderBox = new JComboBox(orders.toArray());
 		this.add(orderBox);
+
+		isDelivered = new TickBox("Delivered?");
+		this.add(isDelivered);
 
 		JButton create = new JButton("Create");
 		create.addActionListener(this);
@@ -59,7 +64,8 @@ class RoutestopOptionCreate extends CRUDOption<Routestop> {
 		if (e.getActionCommand().equals("Create")) {
 			Order order = (Order) orderBox.getSelectedItem();
 			Route route = (Route) routeBox.getSelectedItem();
-			new RoutestopDAO().create(new Routestop(route.getRoute_id(), -1, order.getOrder_id()));
+			new RoutestopDAO()
+					.create(new Routestop(route.getRoute_id(), -1, order.getOrder_id(), isDelivered.isChecked()));
 		}
 		Application.setPanel(new RoutestopMenu());
 	}
@@ -160,6 +166,7 @@ class RoutestopOptionUpdate extends CRUDOption<Routestop> {
 	private JTextField stop_number;
 	private JComboBox<Route> routeBox;
 	private JComboBox<Order> orderBox;
+	private TickBox isDelivered;
 
 	public RoutestopOptionUpdate() {
 		super("Update Routestop", 9);
@@ -186,6 +193,9 @@ class RoutestopOptionUpdate extends CRUDOption<Routestop> {
 		List<Order> orders = new OrderDAO().readAll();
 		orderBox = new JComboBox(orders.toArray());
 		this.add(orderBox);
+
+		isDelivered = new TickBox("Delivered?");
+		this.add(isDelivered);
 
 		JButton read = new JButton("Update");
 		read.addActionListener(this);
@@ -219,8 +229,8 @@ class RoutestopOptionUpdate extends CRUDOption<Routestop> {
 			Order order = (Order) orderBox.getSelectedItem();
 			Route route = (Route) routeBox.getSelectedItem();
 
-			if (!new RoutestopDAO()
-					.update(new Routestop(id, route.getRoute_id(), stop_numberValue, order.getOrder_id()))) {
+			if (!new RoutestopDAO().update(new Routestop(id, route.getRoute_id(), stop_numberValue, order.getOrder_id(),
+					isDelivered.isChecked()))) {
 				setOutput("Routestop does not exist");
 				return;
 			}

@@ -15,6 +15,11 @@ public class Location {
 		this.findCoordinates();
 	}
 
+	public Location(double longitude, double latitude) {
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+
 	public Location(Long location_id, String postcode, double longitude, double latitude) {
 		this.location_id = location_id;
 		this.postcode = postcode;
@@ -31,10 +36,12 @@ public class Location {
 	private final String API_KEY = "&key=17o8dysaCDrgv1c";
 
 	private void findCoordinates() {
+		this.postcode = postcode.toUpperCase();
 		Location cache = new LocationDAO().read(this.postcode);
+		System.out.println(cache);
 		if (cache == null) {
 			HttpClient client = HttpClient.newHttpClient();
-			String urlPostcode = postcode.toUpperCase().replace(" ", "%20");
+			String urlPostcode = postcode.replace(" ", "%20");
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(BASE_API_URL + urlPostcode + API_KEY))
 					.build();
 			client.sendAsync(request, BodyHandlers.ofString()).thenApply(HttpResponse::body).thenAccept(this::parseJson)
@@ -47,6 +54,7 @@ public class Location {
 	}
 
 	private void parseJson(String json) {
+		System.out.println(json);
 		if (json.indexOf("1") == -1) {// Positive Status
 			this.setLongitude(0.0);
 			this.setLatitude(0.0);
@@ -65,6 +73,7 @@ public class Location {
 			this.setLongitude(0.0);
 			this.setLatitude(0.0);
 		}
+		System.out.println(this);
 	}
 
 	private String jsonColumn(String column, String json) {

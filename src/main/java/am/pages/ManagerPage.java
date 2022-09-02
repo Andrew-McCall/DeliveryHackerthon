@@ -2,6 +2,7 @@ package am.pages;
 
 import java.awt.GridLayout;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -18,8 +19,15 @@ public class ManagerPage extends JPanel {
 	private static final long serialVersionUID = -5848887882652905033L;
 
 	public ManagerPage() {
-
 		this.add(new Title("Manager Menu"));
+
+		this.add(Box.createVerticalStrut(0));
+
+		JButton manageRoutes = new JButton("Routes");
+		manageRoutes.addActionListener(e -> Application.setPanel(new ManageRoutes()));
+		this.add(manageRoutes);
+
+		this.add(Box.createVerticalStrut(4));
 
 		JButton login = new JButton("Login CRUD");
 		login.addActionListener(e -> Application.setPanel(new LoginMenu()));
@@ -41,11 +49,12 @@ public class ManagerPage extends JPanel {
 		routestop.addActionListener(e -> Application.setPanel(new RoutestopMenu()));
 		this.add(routestop);
 
+		this.add(Box.createVerticalStrut(4));
+
 		JButton logout = new JButton("LOGOUT");
 		logout.addActionListener(e -> Application.setPanel(new LoginPage()));
 		this.add(logout);
 
-		this.setLayout(new GridLayout(7, 1, 12, 12));
-
+		this.setLayout(new GridLayout(11, 1, 8, 8));
 	}
 }

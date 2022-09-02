@@ -1,18 +1,22 @@
 package am.data.entites;
 
+import am.data.daos.OrderDAO;
+
 public class Routestop {
 
-	public Routestop(Long route_id, Integer stop_number, Long order_id) {
+	public Routestop(Long route_id, Integer stop_number, Long order_id, Boolean isDelivered) {
 		this.route_id = route_id;
 		this.stop_number = stop_number;
 		this.order_id = order_id;
+		this.isDelivered = isDelivered;
 	}
 
-	public Routestop(Long routestop_id, Long route_id, Integer stop_number, Long order_id) {
+	public Routestop(Long routestop_id, Long route_id, Integer stop_number, Long order_id, Boolean isDelivered) {
 		this.routestop_id = routestop_id;
 		this.route_id = route_id;
 		this.stop_number = stop_number;
 		this.order_id = order_id;
+		this.isDelivered = isDelivered;
 	}
 
 	private Long routestop_id;
@@ -20,11 +24,16 @@ public class Routestop {
 	private Long route_id;
 	private Integer stop_number;
 	private Long order_id;
+	private Boolean isDelivered;
+
+	public Order getOrder() {
+		return new OrderDAO().read(order_id);
+	}
 
 	@Override
 	public String toString() {
 		return "Routestop [routestop_id=" + routestop_id + ", route_id=" + route_id + ", stop_number=" + stop_number
-				+ ", order_id=" + order_id + "]";
+				+ ", order_id=" + order_id + ", isDelivered=" + isDelivered + "]";
 	}
 
 	public Long getRoutestop_id() {
@@ -59,10 +68,19 @@ public class Routestop {
 		this.order_id = order_id;
 	}
 
+	public Boolean getIsDelivered() {
+		return isDelivered;
+	}
+
+	public void setIsDelivered(Boolean isDelivered) {
+		this.isDelivered = isDelivered;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((isDelivered == null) ? 0 : isDelivered.hashCode());
 		result = prime * result + ((order_id == null) ? 0 : order_id.hashCode());
 		result = prime * result + ((route_id == null) ? 0 : route_id.hashCode());
 		result = prime * result + ((routestop_id == null) ? 0 : routestop_id.hashCode());
@@ -79,6 +97,11 @@ public class Routestop {
 		if (getClass() != obj.getClass())
 			return false;
 		Routestop other = (Routestop) obj;
+		if (isDelivered == null) {
+			if (other.isDelivered != null)
+				return false;
+		} else if (!isDelivered.equals(other.isDelivered))
+			return false;
 		if (order_id == null) {
 			if (other.order_id != null)
 				return false;
@@ -101,5 +124,4 @@ public class Routestop {
 			return false;
 		return true;
 	}
-
 }

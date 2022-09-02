@@ -1,5 +1,10 @@
 package am.data.entites;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import am.data.daos.RoutestopDAO;
+
 public class Route {
 
 	public Route(Long login_id) {
@@ -25,6 +30,20 @@ public class Route {
 	private Integer distance; // 0 Default (Calculated)
 	private Integer stop_count; // 0 Default (Calculated)
 	private Long login_id;
+
+	public List<Routestop> getRoutestops() {
+		return new RoutestopDAO().readByRoute(route_id);
+	}
+
+	public List<SmartRouteStop> getSmartRoutestop() {
+		List<Routestop> routestops = getRoutestops();
+		List<SmartRouteStop> smartRouteStops = new ArrayList<SmartRouteStop>();
+		for (int i = 0; i < routestops.size(); i++) {
+			smartRouteStops.add(new SmartRouteStop(routestops.get(i)));
+			System.out.println(routestops.get(i));
+		}
+		return smartRouteStops;
+	}
 
 	@Override
 	public String toString() {

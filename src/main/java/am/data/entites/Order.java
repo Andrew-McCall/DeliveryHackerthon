@@ -1,5 +1,7 @@
 package am.data.entites;
 
+import am.data.daos.AddressDAO;
+
 public class Order {
 
 	public Order(String description, Long address_id) {
@@ -17,6 +19,10 @@ public class Order {
 
 	private String description;
 	private Long address_id;
+
+	public Address getAddress() {
+		return new AddressDAO().read(address_id);
+	}
 
 	@Override
 	public String toString() {

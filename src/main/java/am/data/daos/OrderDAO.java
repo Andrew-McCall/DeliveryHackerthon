@@ -84,8 +84,8 @@ public class OrderDAO implements DAO<Order> {
 	@Override
 	public Boolean update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("UPDATE logins SET username = ?, password = ? WHERE order_id = ? LIMIT 1");) {
+				PreparedStatement statement = connection.prepareStatement(
+						"UPDATE orders SET description = ?, address_id = ? WHERE order_id = ? LIMIT 1");) {
 			statement.setString(1, order.getDescription());
 			statement.setLong(2, order.getAddress_id());
 			statement.setLong(3, order.getOrder_id());

@@ -24,6 +24,10 @@ public class Address {
 	private String city;
 	private String postcode;
 
+	public Location getLocation() {
+		return new Location(postcode);
+	}
+
 	@Override
 	public String toString() {
 		return "Address [address_id=" + address_id + ", address_line_one=" + address_line_one + ", address_line_two="
