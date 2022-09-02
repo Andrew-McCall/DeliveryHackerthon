@@ -40,7 +40,6 @@ public class Route {
 		List<SmartRouteStop> smartRouteStops = new ArrayList<SmartRouteStop>();
 		for (int i = 0; i < routestops.size(); i++) {
 			smartRouteStops.add(new SmartRouteStop(routestops.get(i)));
-			System.out.println(routestops.get(i));
 		}
 		return smartRouteStops;
 	}

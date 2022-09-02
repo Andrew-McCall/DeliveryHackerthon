@@ -55,16 +55,19 @@ public class LoginPage extends JPanel implements ActionListener {
 			return;
 		}
 
-		switch (loginDAO.credentialCheck(new Login(username.getText(), password.getText()))) {
-		case 0:
+		Login login = loginDAO.credentialCheck(new Login(username.getText(), password.getText()));
+
+		if (login == null) {
 			output.setText("Incorrect Username or Password");
-			break;
-		case 1:
-			Application.setPanel(new DriverPage());
-			break;
-		case 2:
+			return;
+		}
+
+		Application.setCurrentUser(login);
+
+		if (login.getIsManager()) {
 			Application.setPanel(new ManagerPage());
-			break;
+		} else {
+			Application.setPanel(new DriverPage());
 		}
 
 	}

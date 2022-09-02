@@ -50,6 +50,23 @@ public class RouteDAO implements DAO<Route> {
 		return new ArrayList<>();
 	}
 
+	public List<Route> readByDriverId(Long login_id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM routes WHERE login_id = ?");) {
+			statement.setLong(1, login_id);
+			ResultSet resultSet = statement.executeQuery();
+			List<Route> routes = new ArrayList<>();
+			while (resultSet.next()) {
+				routes.add(modelFromResultSet(resultSet));
+			}
+			return routes;
+		} catch (SQLException e) {
+			System.out.checkError();
+			System.out.println(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+
 	@Override
 	public Route read(Long route_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();

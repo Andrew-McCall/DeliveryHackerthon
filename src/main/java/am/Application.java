@@ -5,10 +5,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+import am.data.entites.Login;
 import am.pages.LoginPage;
 
 public class Application {
 	private static JFrame app;
+	private static Login currentUser;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -51,4 +53,13 @@ public class Application {
 		app.setLocationRelativeTo(null);
 
 	}
+
+	public static Login getCurrentUser() {
+		return currentUser;
+	}
+
+	public static void setCurrentUser(Login currentUser) {
+		Application.currentUser = currentUser;
+	}
+
 }

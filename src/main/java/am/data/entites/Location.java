@@ -38,7 +38,6 @@ public class Location {
 	private void findCoordinates() {
 		this.postcode = postcode.toUpperCase();
 		Location cache = new LocationDAO().read(this.postcode);
-		System.out.println(cache);
 		if (cache == null) {
 			HttpClient client = HttpClient.newHttpClient();
 			String urlPostcode = postcode.replace(" ", "%20");

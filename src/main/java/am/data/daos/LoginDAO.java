@@ -20,26 +20,24 @@ public class LoginDAO implements DAO<Login> {
 	}
 
 	/// 0 - Error, 1 - Driver, 2 - Manager
-	public int credentialCheck(Login login) {
+	public Login credentialCheck(Login login) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"SELECT COUNT(*), isManager FROM logins WHERE username = ? AND password = ? LIMIT 1");) {
+						"SELECT COUNT(*), * FROM logins WHERE username = ? AND password = ? LIMIT 1");) {
 			statement.setString(1, login.getUsername());
 			statement.setString(2, login.getPassword());
 			ResultSet resultSet = statement.executeQuery();
 			resultSet.next();
 			if (resultSet.getInt(1) == 0) {
-				return 0;
+				return null;
+			} else {
+				return modelFromResultSet(resultSet);
 			}
-			if (resultSet.getBoolean("isManager")) {
-				return 2;
-			}
-			return 1;
 		} catch (Exception e) {
 			System.out.checkError();
 			System.out.println(e.getMessage());
 		}
-		return 0;
+		return null;
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class ManageRoutes extends JPanel implements ActionListener {
 		routeSelect.addActionListener(this);
 		leftPane.add(routeSelect);
 
-		this.add(Box.createVerticalStrut(10));
+		leftPane.add(Box.createVerticalStrut(10));
 
 		JButton back = new JButton("Back");
 		back.addActionListener(e -> Application.setPanel(new ManagerPage()));
