@@ -26,7 +26,7 @@ public class Application {
 		app.setResizable(false);
 
 		setPanel(new LoginPage());
-		// gisetPanel(new ManageRoutes());
+		//setPanel(new ManagerPage());
 
 		app.setVisible(true);
 	}

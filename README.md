@@ -17,3 +17,6 @@ A GUI based Delivery Managment System. A login prompt with seperate pages for ma
 - More user-friendly route creator / manager
 - Generated Routes
 - Canvas based gui for generated routes
+
+## Demo
+Login: amccall, password
